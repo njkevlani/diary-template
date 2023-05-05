@@ -1,0 +1,85 @@
+#!/usr/bin/env sh
+
+# Generated using https://github.com/njkevlani/dotfiles/blob/main/scripts/.local/bin/template.sh
+
+# Exit when a command fails.
+set -o errexit
+
+# Fail the script when some unset variable is used.
+set -o nounset
+
+# Fail the script when a command in pipe fails.
+set -o pipefail
+
+# To enable script execution with traces, use TRACE=1 ./script.sh
+if [[ "${TRACE-0}" == "1" ]]; then
+    set -o xtrace
+fi
+
+run_main() {
+    cmd="${1-}"
+    case ${cmd} in
+        "-h" | "--help")
+            run_help
+            exit
+            ;;
+        "")
+            write_for_today
+            ;;
+        *)
+            write_for $@
+            ;;
+    esac
+}
+
+run_help() {
+    echo 'Write diary for a specific day or today.
+    Usage: ./write [day]
+    format for day should be yyyy-mm-dd
+    Options:
+        -h, --help show this message.'
+}
+
+write_for_today() {
+    write_for $(date +%Y-%m-%d)
+}
+
+write_for() {
+    # Exit if no argument is provided.
+    if [[ ! $# -eq 1 ]] ; then
+        echo "Exactly one argument is expected. Provided $# argument(s) ($@)."
+        exit 1
+    fi
+
+    # Create {year/_index.md, year/month/_index.md, year/month/day.md} if not present.
+    year_page="$(date -d $1 +%Y)/_index.md"
+    if [ ! -f  "content/${year_page}" ]; then
+        hugo new ${year_page}
+        git add "content/${year_page}"
+    fi
+
+    month_page="$(date -d $1 +%Y/%m)/_index.md"
+    if [ ! -f  "content/${month_page}" ]; then
+        hugo new ${month_page}
+        git add "content/${month_page}"
+    fi
+
+    day_page="$(date -d $1 +%Y/%m/%d).md"
+    commit_msg="Updated ${day_page}"
+    if [ ! -f  "content/${day_page}" ]; then
+        hugo new ${day_page}
+        echo "# $(date +%Y-%m-%d)" >> "content/${day_page}"
+        commit_msg="Added ${day_page}"
+    fi
+
+    nvim -c "norm Go" \
+        -c "norm zz" \
+        -c "set spell" \
+        -c "set tw=80" \
+        -c "startinsert" "content/${day_page}"
+
+    git add "content/${day_page}"
+    git commit -m "${commit_msg}"
+}
+
+run_main "$@"
