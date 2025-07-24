@@ -1,6 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  {{ partial "head.html" . }}
+  <head>
+      <title>{{ .Title }}</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width">
+
+      {{ $stylemain := resources.Get "css/style.css" | minify | fingerprint "sha512" }}
+      <link rel="stylesheet" href="{{ $stylemain.RelPermalink }}" integrity="{{ $stylemain.Data.Integrity }}">
+  </head>
   <body>
     <aside id="side-nav-open">
       <nav>
@@ -11,8 +18,6 @@
     <main>
       {{ block "main" . }}
       {{ end }}
-
-      {{ partial "footer.html" . }}
     </main>
   </body>
 </html>
