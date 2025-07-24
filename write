@@ -55,13 +55,13 @@ write_for() {
     year_page="$(date -d $1 +%Y)/_index.md"
     if [ ! -f  "content/${year_page}" ]; then
         hugo new ${year_page}
-        git add "content/${year_page}"
+        echo "# $(date +%Y)" >> "content/${year_page}"
     fi
 
     month_page="$(date -d $1 +%Y/%m)/_index.md"
     if [ ! -f  "content/${month_page}" ]; then
         hugo new ${month_page}
-        git add "content/${month_page}"
+        echo "# $(date +%Y-%m)" >> "content/${month_page}"
     fi
 
     day_page="$(date -d $1 +%Y/%m/%d).md"
