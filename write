@@ -65,11 +65,9 @@ write_for() {
     fi
 
     day_page="$(date -d $1 +%Y/%m/%d).md"
-    commit_msg="Updated ${day_page}"
     if [ ! -f  "content/${day_page}" ]; then
         hugo new ${day_page}
         echo "# $(date +%Y-%m-%d)" >> "content/${day_page}"
-        commit_msg="Added ${day_page}"
     fi
 
     nvim -c "norm Go" \
@@ -77,9 +75,6 @@ write_for() {
         -c "set spell" \
         -c "set tw=80" \
         -c "startinsert" "content/${day_page}"
-
-    git add "content/${day_page}"
-    git commit -m "${commit_msg}"
 }
 
 run_main "$@"
