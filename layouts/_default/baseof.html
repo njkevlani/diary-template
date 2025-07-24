@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  {{ partial "head.html" . }}
+  <body>
+    <aside id="side-nav-open">
+      <nav>
+        {{ partial "side-nav-bar" (dict "currentPage" . "pages" .Site.Home.Pages) }}
+      </nav>
+    </aside>
+
+    <main>
+      {{ block "main" . }}
+      {{ end }}
+
+      {{ partial "footer.html" . }}
+    </main>
+  </body>
+</html>

@@ -1,4 +1,3 @@
 baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'Diary'
-theme = "hst-2-col"
