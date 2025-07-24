@@ -55,19 +55,19 @@ write_for() {
     year_page="$(date -d $1 +%Y)/_index.md"
     if [ ! -f  "content/${year_page}" ]; then
         hugo new ${year_page}
-        echo "# $(date +%Y)" >> "content/${year_page}"
+        echo "# $(date -d $1 +%Y)" >> "content/${year_page}"
     fi
 
     month_page="$(date -d $1 +%Y/%m)/_index.md"
     if [ ! -f  "content/${month_page}" ]; then
         hugo new ${month_page}
-        echo "# $(date +%Y-%m)" >> "content/${month_page}"
+        echo "# $(date -d $1 +%Y-%m)" >> "content/${month_page}"
     fi
 
     day_page="$(date -d $1 +%Y/%m/%d).md"
     if [ ! -f  "content/${day_page}" ]; then
         hugo new ${day_page}
-        echo "# $(date +%Y-%m-%d)" >> "content/${day_page}"
+        echo -e "# $(date -d $1 +%Y-%m-%d)\n\n---\n" >> "content/${day_page}"
     fi
 
     nvim -c "norm Go" \
