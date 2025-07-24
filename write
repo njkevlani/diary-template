@@ -54,20 +54,17 @@ write_for() {
     # Create {year/_index.md, year/month/_index.md, year/month/day.md} if not present.
     year_page="$(date -d $1 +%Y)/_index.md"
     if [ ! -f  "content/${year_page}" ]; then
-        hugo new ${year_page}
-        echo "# $(date -d $1 +%Y)" >> "content/${year_page}"
+        hugo new --kind list ${year_page}
     fi
 
     month_page="$(date -d $1 +%Y/%m)/_index.md"
     if [ ! -f  "content/${month_page}" ]; then
-        hugo new ${month_page}
-        echo "# $(date -d $1 +%Y-%m)" >> "content/${month_page}"
+        hugo new --kind list ${month_page}
     fi
 
     day_page="$(date -d $1 +%Y/%m/%d).md"
     if [ ! -f  "content/${day_page}" ]; then
         hugo new ${day_page}
-        echo -e "# $(date -d $1 +%Y-%m-%d)\n\n---\n" >> "content/${day_page}"
     fi
 
     nvim -c "norm Go" \

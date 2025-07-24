@@ -1,0 +1,47 @@
+{{ define "main" }}
+<div id="cal-heatmap"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/cal-heatmap/cal-heatmap.css" />
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/cal-heatmap/dist/cal-heatmap.min.js"></script>
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="https://unpkg.com/cal-heatmap/dist/plugins/Tooltip.min.js"></script>
+<script src="https://unpkg.com/cal-heatmap/dist/plugins/Legend.min.js"></script>
+
+
+<script>
+  const cal = new CalHeatmap();
+
+  const mood = [
+    {{- range .Site.RegularPages -}}
+      { date: "{{ .Title }}", mood: "{{ .Params.mood }}" },
+    {{- end -}}
+  ];
+
+  console.log(mood);
+
+  cal.paint({
+    data: {
+      source: mood ,
+      x: "date",
+      y: "mood",
+      groupY: d => d[0],
+    },
+    date: { start: new Date(new Date().getFullYear(), 1, 1), max: new Date() },
+    range:new Date().getMonth()+1,
+    domain: { type: "month", label: { position: "top" }, padding: [10, 10, 10, 10] },
+    subDomain: {type: "xDay", radius: 2, width: 15, height: 15, label: 'D' },
+    scale: { 
+      color: { 
+        domain: ['Bad', 'Neutral', 'Good', 'Excellent'],
+        type: 'ordinal',
+        range: ['#e41a1c', '#999999', '#1f77b4',  '#386cb0']
+      }
+    },
+  }, [
+      [Tooltip, {text: (timestamp, value, dayjsDate) => { return `${new Date(timestamp).toISOString().split('T')[0]} - ${value}`; } }],
+      [Legend, { width: 400 }],
+]);
+</script>
+{{ end }}
+
