@@ -38,14 +38,13 @@
       }
     },
   }, [
-      [Tooltip, {text: (timestamp, value, dayjsDate) => { 
-          const tooltip = value === null ? new Date(timestamp).toISOString().split('T')[0] : `${new Date(timestamp).toISOString().split('T')[0]} - ${value}`;
+    [Tooltip, {text: (timestamp, value, dayjsDate) => {
+        const tooltip = value === null ? new Date(timestamp).toISOString().split('T')[0] : `${new Date(timestamp).toISOString().split('T')[0]} - ${value}`;
 
-          return tooltip;
-        } 
-      }],
-      [Legend, { width: 400 }],
-]);
+        return tooltip;
+      }
+    }],
+    [Legend, { width: 400 }],
+  ]);
 </script>
 {{ end }}
-
