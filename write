@@ -33,15 +33,22 @@ run_main() {
 }
 
 run_help() {
-    echo 'Write diary for a specific day or today.
+    echo 'Write diary.
     Usage: ./write [day]
-    format for day should be yyyy-mm-dd
+
+    `day` is optional with `today` as default value. Valid values for `day` are
+    things that can be passed to `--date` argument of unix `date` util.
+
+    Examples:
+        ./write             # Write diary for today.
+        ./write yesterday   # Write diary for yesterday.
+        ./write 2025-07-28  # Write diary for a specific day.
     Options:
         -h, --help show this message.'
 }
 
 write_for_today() {
-    write_for $(date +%Y-%m-%d)
+    write_for today
 }
 
 write_for() {
@@ -52,17 +59,17 @@ write_for() {
     fi
 
     # Create {year/_index.md, year/month/_index.md, year/month/day.md} if not present.
-    year_page="$(date -d $1 +%Y)/_index.md"
+    year_page="$(date --date $1 +%Y)/_index.md"
     if [ ! -f  "content/${year_page}" ]; then
         hugo new --kind list ${year_page}
     fi
 
-    month_page="$(date -d $1 +%Y/%m)/_index.md"
+    month_page="$(date --date $1 +%Y/%m)/_index.md"
     if [ ! -f  "content/${month_page}" ]; then
         hugo new --kind list ${month_page}
     fi
 
-    day_page="$(date -d $1 +%Y/%m/%d).md"
+    day_page="$(date --date $1 +%Y/%m/%d).md"
     if [ ! -f  "content/${day_page}" ]; then
         hugo new ${day_page}
     fi
