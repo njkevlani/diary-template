@@ -1,8 +1,10 @@
 ---
-title: '{{ replace .File.Path "/" "-" | strings.TrimSuffix ".md" | strings.TrimSuffix "-_index" }}'
+{{ $date := replace .File.Path "/" "-" | strings.TrimSuffix ".md" -}}
+title: '{{ $date }}'
 mood: Good
 tags: []
 ---
-# {{ replace .File.Path "/" "-" | strings.TrimSuffix ".md" }}
+
+# {{ $date }}
 
 ---
