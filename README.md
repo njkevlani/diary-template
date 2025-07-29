@@ -2,10 +2,6 @@
 
 A template to write and read diary using bash, git, (neo)vim and hugo.
 
-> **Note**
-> Not necessary, but highly recommended that you use <https://github.com/AGWA/git-crypt>
-> to encrypt the content of your diary. Check out its repo for its setup details.
-
 # Workflow
 
 Fork this repo to get started.
@@ -38,3 +34,18 @@ To fetch the latest changes added to the template, use the following steps.
 git fetch upstream
 git merge upstream/main
 ```
+
+# Encryption
+
+> **Note**
+> Not necessary, but highly recommended that you use <https://github.com/AGWA/git-crypt>
+> to encrypt the content of your diary.
+
+Steps to setup encryption are:
+
+```shell
+git-crypt init
+git-crypt add-gpg-user <email-for-gpg>
+```
+
+Check out git-crypt repo for other ways to encrypt repo.
