@@ -49,3 +49,9 @@ git-crypt add-gpg-user <email-for-gpg>
 ```
 
 Check out git-crypt repo for other ways to encrypt repo.
+
+# TODO
+
+- [ ] Make mood a generic rating layout.
+- [ ] [P3] Use layout/all.html
+- [ ] [P3] Use css from common project.
