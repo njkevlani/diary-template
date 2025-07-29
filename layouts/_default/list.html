@@ -8,14 +8,8 @@
   {{ if gt (len .Pages) 0 }}
     <ul>
       {{ range sort .Pages "File.Path" }}
-        {{ $nameToShow := .Title }}
-
-        {{ if eq (len $nameToShow) 0 }}
-          {{ $nameToShow = .File.ContentBaseName }}
-        {{ end }}
-
         <li>
-          <a href="{{ .RelPermalink }}">{{ $nameToShow }}</a>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
         </li>
       {{ end }}
     </ul>

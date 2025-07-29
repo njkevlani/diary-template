@@ -13,7 +13,7 @@
 
   const mood = [
     {{- range .Site.RegularPages -}}
-      { date: "{{ .Title }}", mood: "{{ .Params.mood }}" },
+      { date: "{{ .Date }}", mood: "{{ .Params.mood }}" },
     {{- end -}}
   ];
 
