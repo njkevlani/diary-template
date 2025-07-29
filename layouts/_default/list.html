@@ -7,7 +7,7 @@
 
   {{ if gt (len .Pages) 0 }}
     <ul>
-      {{ range .Pages }}
+      {{ range sort .Pages "File.Path" }}
         {{ $nameToShow := .Title }}
 
         {{ if eq (len $nameToShow) 0 }}
