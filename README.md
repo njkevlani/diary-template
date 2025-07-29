@@ -26,10 +26,15 @@ hugo server
 
 # Updating template
 
-To fetch the latest changes added to the template, use the following steps.
+Setup this repo as upstream remote (needed one time).
 
 ```shell
 git remote add upstream https://github.com/njkevlani/diary-template
+```
+
+To fetch the latest changes added to the template, use the following steps.
+
+```shell
 git fetch upstream
 git merge upstream/main
 ```
