@@ -37,7 +37,7 @@ git merge upstream/main
 
 # Encryption
 
-> **Note**
+> [!NOTE]
 > Not necessary, but highly recommended that you use <https://github.com/AGWA/git-crypt>
 > to encrypt the content of your diary.
 
