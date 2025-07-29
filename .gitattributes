@@ -1,1 +1,6 @@
+# Encrpyt everything from content/ directory.
 content/** filter=git-crypt diff=git-crypt
+
+# Exception couple of files.
+content/_index.md !filter=git-crypt !diff=git-crypt
+content/mood/_index.md !filter=git-crypt !diff=git-crypt
