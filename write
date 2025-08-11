@@ -27,7 +27,7 @@ run_main() {
             write_for_today
             ;;
         *)
-            write_for $@
+            write_for "$@"
             ;;
     esac
 }
@@ -52,24 +52,19 @@ write_for_today() {
 }
 
 write_for() {
-    # Exit if no argument is provided.
-    if [[ ! $# -eq 1 ]] ; then
-        echo "Exactly one argument is expected. Provided $# argument(s) ($@)."
-        exit 1
-    fi
-
     # Create {year/_index.md, year/month/_index.md, year/month/day.md} if not present.
-    year_page="$(date --date $1 +%Y)/_index.md"
+    echo $1
+    year_page="$(date --date "$1" +%Y)/_index.md"
     if [ ! -f  "content/${year_page}" ]; then
         hugo new --kind list ${year_page}
     fi
 
-    month_page="$(date --date $1 +%Y/%m)/_index.md"
+    month_page="$(date --date "$1" +%Y/%m)/_index.md"
     if [ ! -f  "content/${month_page}" ]; then
         hugo new --kind list ${month_page}
     fi
 
-    day_page="$(date --date $1 +%Y/%m/%d).md"
+    day_page="$(date --date "$1" +%Y/%m/%d).md"
     if [ ! -f  "content/${day_page}" ]; then
         hugo new ${day_page}
     fi
