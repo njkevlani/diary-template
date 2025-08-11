@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 # Generated using https://github.com/njkevlani/dotfiles/blob/main/scripts/.local/bin/template.sh
 
@@ -36,8 +36,8 @@ run_help() {
     echo 'Write diary.
     Usage: ./write [day]
 
-    `day` is optional with `today` as default value. Valid values for `day` are
-    things that can be passed to `--date` argument of unix `date` util.
+    day is optional with today as default value. Valid values for day are
+    things that can be passed to --date argument of unix date util.
 
     Examples:
         ./write             # Write diary for today.
@@ -53,20 +53,19 @@ write_for_today() {
 
 write_for() {
     # Create {year/_index.md, year/month/_index.md, year/month/day.md} if not present.
-    echo $1
     year_page="$(date --date "$1" +%Y)/_index.md"
     if [ ! -f  "content/${year_page}" ]; then
-        hugo new --kind list ${year_page}
+        hugo new --kind list "${year_page}"
     fi
 
     month_page="$(date --date "$1" +%Y/%m)/_index.md"
     if [ ! -f  "content/${month_page}" ]; then
-        hugo new --kind list ${month_page}
+        hugo new --kind list "${month_page}"
     fi
 
     day_page="$(date --date "$1" +%Y/%m/%d).md"
     if [ ! -f  "content/${day_page}" ]; then
-        hugo new ${day_page}
+        hugo new "${day_page}"
     fi
 
     nvim -c "norm Go" \
